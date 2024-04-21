@@ -4,16 +4,17 @@ LDFLAGS=-g
 LDLIBS=
 SOURCES=$(wildcard *.cc)
 OBJS=$(SOURCES:.cc=.o)
+SOURCES2=$(wildcard *.cpp)
+OBJS2=$(SOURCES2:.cpp=.o)
 
-
-$(TARGET): $(OBJS)
+$(TARGET): $(OBJS) $(OBJS2)
 	g++ $(LDFLAGS) -o $@ $^ $(LDLIBS)
 
-%.o: %.cc
+%.o: %.c[c,cp]
 	g++ $(CPPFLAGS) -c $< -o $@
 
 install:
 	cp $(TARGET) /usr/local/bin
 
 clean:
-	rm -f $(TARGET) $(OBJS)
+	rm -f $(TARGET) *.o
